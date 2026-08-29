@@ -8,6 +8,7 @@ import type { VerifyEmailDto } from './dto/verify-dto.dto';
 import { AuthGuard } from './guard/guard';
 import type { RefreshTokenDto } from './dto/refreshtoken.dto';
 import type { Request } from 'express';
+import { Throttle } from '@nestjs/throttler';
 
 interface RequestWithUser extends Request
 {
@@ -26,6 +27,7 @@ export class AuthController
 {
     constructor ( private readonly authService: AuthService ) { }
 
+    @Throttle( { default: { limit: 10, ttl: 60000 } } )
     @HttpCode( HttpStatus.ACCEPTED )
     @Post( 'register' )
     async registerUser ( @Body() data: RegisterDtoDto, ): Promise<{ message: string }>
@@ -33,7 +35,7 @@ export class AuthController
         await this.authService.registerUser( data );
         return { message: 'Verification code sent to your email, please check and verify' }
     }
-
+    @Throttle( { default: { limit: 3, ttl: 60000 } } )
     @HttpCode( HttpStatus.ACCEPTED )
     @Post( 'resendcode' )
     async resendOtpcode ( @Body() data: ResendDtoDto, ): Promise<{ message: string }>
@@ -41,6 +43,8 @@ export class AuthController
         await this.authService.resendOtpCode( data.email );
         return { message: 'Verification code sent to your email, please check and verify' }
     }
+
+    @Throttle( { default: { limit: 4, ttl: 60000 } } )
     @HttpCode( HttpStatus.CREATED )
     @Post( 'verifyemail' )
     async verifyEmail ( @Body() data: VerifyEmailDto, ): Promise<{ message: string, data: object }>
@@ -49,6 +53,7 @@ export class AuthController
         return { message: 'Email verified successfully', data: response }
     }
 
+    @Throttle( { default: { limit: 5, ttl: 60000 } } )
     @HttpCode( HttpStatus.CREATED )
     @Post( 'login' )
     async loginUser ( @Body() data: LoginDtoDto, ): Promise<{ message: string, data: object }>
@@ -78,7 +83,7 @@ export class AuthController
         return { message: 'User logout successfully', data: response }
     }
 
-
+    @Throttle( { default: { limit: 3, ttl: 60000 } } )
     @HttpCode( HttpStatus.OK )
     @Get( 'me' )
     @UseGuards( AuthGuard )
