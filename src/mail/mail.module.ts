@@ -3,14 +3,23 @@ import { Module } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { BullModule } from '@nestjs/bullmq'
 import { MAIL_QUEUE } from './mail.constants';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module( {
   imports: [
-    BullModule.forRoot( {
+  BullModule.forRootAsync( {
+    imports: [ ConfigModule ],
+    inject: [ ConfigService ],
+
+    useFactory: ( configService: ConfigService ) => ( {
       connection: {
-        host: process.env.REDIS_HOST,
-        port: Number( process.env.REDIS_PORT ),
-      }
+        host: configService.getOrThrow<string>( 'REDIS_HOST' ),
+        port: Number(
+          configService.getOrThrow<string>( 'REDIS_PORT' ),
+        ),
+      },
     } ),
+  } ),
+
     BullModule.registerQueue( {
       name: MAIL_QUEUE,
     } )

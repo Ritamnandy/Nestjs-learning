@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
@@ -23,7 +22,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
       isGlobal: true,
     } ),
     AuthModule, PrismaModule, RedisModule, MailModule ],
-  controllers: [ AuthController ],
+  controllers: [  ],
   providers: [],
 } )
 export class AppModule { }

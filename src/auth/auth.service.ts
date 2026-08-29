@@ -2,16 +2,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { RedisService } from './../redis/redis.service';
-import type { MailService } from '../mail/mail.service';
+import { MailService } from '../mail/mail.service';
 import { AuthRepository } from './auth.repository';
 /* eslint-disable prettier/prettier */
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { JsonWebTokenError, type JwtService } from '@nestjs/jwt';
+import { JsonWebTokenError, JwtService } from '@nestjs/jwt';
 
 import type { RegisterDtoDto } from './dto/register-dto.dto';
 import { comparePassword, generateOtp, hashPassword, OTP_EXPIRATION, OtpKey, singUpKey } from './constants';
 import type { JwtPayload, RefreshTokenPayload } from './types/jwt-payload';
-import type { ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 import type { StringValue } from 'ms';
 @Injectable()
 export class AuthService
@@ -23,12 +23,12 @@ export class AuthService
         {
             const accessToken = this.jwtService.sign( payload, {
                 secret: this.configService.getOrThrow<string>( 'JWT_SECRET' ),
-                expiresIn: this.configService.getOrThrow<string>( 'JWT_EXPIRATION' ) as StringValue,
+                expiresIn: this.configService.getOrThrow<string>( 'JWT_EXPIRATION_TIME' ) as StringValue,
             } );
 
             const refreshToken = this.jwtService.sign( rpayload, {
                 secret: this.configService.getOrThrow<string>( 'REFRESH_TOKEN_SECRET' ),
-                expiresIn: this.configService.getOrThrow<string>( 'REFRESH_TOKEN_EXPIRATION' ) as StringValue,
+                expiresIn: this.configService.getOrThrow<string>( 'REFRESH_TOKEN_EXPIRATION_TIME' ) as StringValue,
             } );
 
             return { accessToken, refreshToken };
@@ -44,9 +44,10 @@ export class AuthService
     }
 
     constructor (
-        private readonly authRepository: AuthRepository, private readonly mailService: MailService,
+        private readonly authRepository: AuthRepository,
         private readonly redisService: RedisService,
         private readonly jwtService: JwtService,
+        private readonly mailService: MailService,
         private readonly configService: ConfigService
     ) { }
 

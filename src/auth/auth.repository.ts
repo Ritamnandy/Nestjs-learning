@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 
 import { Injectable } from "@nestjs/common";
-import type { PrismaService } from "../prisma/prisma.service";
-import type { RegisterDtoDto } from "./dto/register-dto.dto";
+import  { PrismaService } from "../prisma/prisma.service";
+import  { RegisterDtoDto } from "./dto/register-dto.dto";
 
 @Injectable()
 export class AuthRepository
@@ -20,6 +20,8 @@ export class AuthRepository
 
     async createUser ( data: RegisterDtoDto, )
     {
+        console.log(data);
+        
         return await this.prisma.user.create( {
             data: {
                 ...data,

@@ -21,7 +21,7 @@ export class MailProcessor extends WorkerHost
         super();
         this.transporter = nodemailer.createTransport( {
             auth: {
-                user: process.env.EMAIL as string,
+                user: process.env.APP_EMAIL as string,
                 pass: process.env.APP_PASSWORD as string,
             },
         } )
@@ -82,7 +82,7 @@ export class MailProcessor extends WorkerHost
         const text = this.mailGenerator.generatePlaintext( emailBody )
 
         await this.transporter.sendMail( {
-            from: process.env.EMAIL,
+            from: process.env.APP_EMAIL,
             to: email,
             subject: 'Welcome to My App',
             html: emailHtml,
@@ -126,7 +126,7 @@ export class MailProcessor extends WorkerHost
             this.mailGenerator.generatePlaintext( emailBody );
 
         await this.transporter.sendMail( {
-            from: process.env.MAIL_FROM,
+            from: process.env.APP_EMAIL,
             to: email,
             subject: 'Verify your email address',
             html,
@@ -170,7 +170,7 @@ export class MailProcessor extends WorkerHost
             this.mailGenerator.generatePlaintext( emailBody );
 
         await this.transporter.sendMail( {
-            from: process.env.MAIL_FROM,
+            from: process.env.APP_EMAIL,
             to: email,
             subject: 'Reset your password',
             html,
@@ -203,7 +203,7 @@ export class MailProcessor extends WorkerHost
             this.mailGenerator.generatePlaintext( emailBody );
 
         await this.transporter.sendMail( {
-            from: process.env.MAIL_FROM,
+            from: process.env.APP_EMAIL,
             to: email,
             subject: 'Your password was changed',
             html,

@@ -1,13 +1,13 @@
-import { LoginDtoDto } from './dto/login-dto.dto';
 /* eslint-disable prettier/prettier */
+import { LoginDtoDto } from './dto/login-dto.dto';
 import { Controller, Get, Post, Body, HttpStatus, HttpCode, BadRequestException, UseGuards, Req } from '@nestjs/common';
-import type { AuthService } from './auth.service';
-import type { RegisterDtoDto } from './dto/register-dto.dto';
-import type { ResendDtoDto } from './dto/resend-dto.dto';
-import type { VerifyEmailDto } from './dto/verify-dto.dto';
+import  { AuthService } from './auth.service';
+import  { RegisterDtoDto } from './dto/register-dto.dto';
+import  { ResendDtoDto } from './dto/resend-dto.dto';
+import  { VerifyEmailDto } from './dto/verify-dto.dto';
 import { AuthGuard } from './guard/guard';
-import type { RefreshTokenDto } from './dto/refreshtoken.dto';
-import type { Request } from 'express';
+import  { RefreshTokenDto } from './dto/refreshtoken.dto';
+import  { Request } from 'express';
 import { Throttle } from '@nestjs/throttler';
 
 interface RequestWithUser extends Request
