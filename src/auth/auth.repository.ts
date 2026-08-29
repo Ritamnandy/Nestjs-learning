@@ -58,7 +58,7 @@ export class AuthRepository
         } )
     }
 
-    async setRefreshToken ( id: string, refreshToken: string )
+    async setRefreshToken ( id: string, refreshToken: string | null )
     {
         return await this.prisma.user.update( {
             where: {
