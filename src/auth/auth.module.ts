@@ -10,6 +10,7 @@ import { RedisModule } from '../redis/redis.module';
 import { RefreshTokenStrategy } from './strategies/refresh-token.sarategis';
 
 import { JwtModule } from '@nestjs/jwt';
+import { AuthGuard } from './guard/guard';
 
 
 
@@ -27,6 +28,7 @@ import { JwtModule } from '@nestjs/jwt';
         AuthService,
         JwtStrategy,
         RefreshTokenStrategy,
+        AuthGuard,
     ],
     controllers: [ AuthController ],
 } )
