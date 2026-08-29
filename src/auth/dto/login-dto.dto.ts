@@ -1,6 +1,14 @@
 /* eslint-disable prettier/prettier */
-
-export class LoginDtoDto {
+import { IsEmail, IsNotEmpty, IsString, IsStrongPassword } from 'class-validator';
+export class LoginDtoDto
+{
+    @IsString()
+    @IsNotEmpty()
+    @IsEmail()
     email!: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @IsStrongPassword()
     password!: string;
 }

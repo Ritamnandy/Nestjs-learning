@@ -1,5 +1,11 @@
 /* eslint-disable prettier/prettier */
 
-export class ResendDtoDto {
+import { IsEmail, IsNotEmpty, IsString } from "class-validator";
+
+export class ResendDtoDto
+{
+    @IsString()
+    @IsNotEmpty()
+    @IsEmail()
     email!: string
 }
