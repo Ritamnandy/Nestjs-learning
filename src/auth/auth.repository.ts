@@ -20,7 +20,7 @@ export class AuthRepository
 
     async createUser ( data: RegisterDtoDto, )
     {
-        console.log(data);
+        // console.log(data);
         
         return await this.prisma.user.create( {
             data: {

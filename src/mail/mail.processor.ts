@@ -40,7 +40,7 @@ export class MailProcessor extends WorkerHost
     {
         switch ( job.name )
         {
-            case 'welcome-email':
+            case 'sendWellcomeEmail':
                 await this.sendWelcomeEmail( job );
                 break;
             case 'sendVerifyEmailMail':
