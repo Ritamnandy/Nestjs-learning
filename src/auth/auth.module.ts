@@ -4,11 +4,7 @@ import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { PrismaModule } from '../prisma/prisma.module';
-import { JwtStrategy } from './strategies/jwt-strategies';
-
 import { RedisModule } from '../redis/redis.module';
-import { RefreshTokenStrategy } from './strategies/refresh-token.sarategis';
-
 import { JwtModule } from '@nestjs/jwt';
 import { AuthGuard } from './guard/guard';
 
@@ -26,8 +22,6 @@ import { AuthGuard } from './guard/guard';
     ],
     providers: [
         AuthService,
-        JwtStrategy,
-        RefreshTokenStrategy,
         AuthGuard,
     ],
     controllers: [ AuthController ],
