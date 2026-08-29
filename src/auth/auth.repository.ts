@@ -58,7 +58,7 @@ export class AuthRepository
         } )
     }
 
-    async setRefreshToken ( id: string, refreshToken: string | null )
+    async setRefreshToken ( id: string, refreshToken: string )
     {
         return await this.prisma.user.update( {
             where: {
@@ -90,7 +90,8 @@ export class AuthRepository
                 id
             },
             data: {
-                userStatus: 'DELETED'
+                userStatus: 'DELETED',
+                refreshToken: null
             }
         } )
     }

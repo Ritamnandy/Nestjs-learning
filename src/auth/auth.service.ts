@@ -186,7 +186,7 @@ export class AuthService
 
     async logoutUser ( id: string )
     {
-        await this.authRepository.setRefreshToken( id, null );
+
         return await this.authRepository.deleteUser( id );
     }
 
