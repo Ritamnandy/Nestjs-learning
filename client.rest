@@ -3,6 +3,39 @@ POST  http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email":"nandyritam519@gmail.com",
+    "email":"nandyritam@519gmail.com",
     "password":"Pass@123"
+}
+
+###
+
+POST  http://localhost:3000/auth/register
+Content-Type:  application/json
+
+{
+    "firstName":"Ritam",
+    "lastName":"Nandy",
+    "email":"nandyritam@519gmail.com",
+    "password":"Pass@123"
+}
+
+
+###
+
+
+POST  http://localhost:3000/auth/verifyemail
+Content-Type:  application/json
+
+{
+    "email":"nandyritam@519gmail.com",
+    "otp":"577546"
+}
+
+###
+
+POST  http://localhost:3000/auth/refresh-accesstoken
+Content-Type:  application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRiYjlkNTExLTc0YTYtNGRhZC05YTlmLTMxNGJiYmU1OTI2OCIsImVtYWlsIjoibmFuZHlyaXRhbUA1MTlnbWFpbC5jb20iLCJpYXQiOjE3ODgxMDU2MzEsImV4cCI6MTc4ODk2OTYzMX0.YHHceLZL8zqRlZwyNbcWXbo3CtvRQTnl0pL4wx2DA3k"
 }
